@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Cog, FileText, Share2, Zap } from "lucide-react";
 
 const agents = [
@@ -8,7 +8,7 @@ const agents = [
     name: "Web Search",
     icon: Search,
     description: "Intelligent web crawler",
-    position: { x: -300, y: -100 },
+    angle: 0, // Top
     delay: 0,
   },
   {
@@ -16,57 +16,86 @@ const agents = [
     name: "Agent Logic",
     icon: Cog,
     description: "Decision processing core",
-    position: { x: 300, y: -150 },
-    delay: 0.5,
+    angle: 72, // Top right
+    delay: 0.3,
   },
   {
     id: 3,
     name: "Content Creator",
     icon: FileText,
     description: "Autonomous content generation",
-    position: { x: -250, y: 150 },
-    delay: 1,
+    angle: 144, // Bottom right
+    delay: 0.6,
   },
   {
     id: 4,
     name: "Social Media",
     icon: Share2,
     description: "Multi-platform distribution",
-    position: { x: 280, y: 120 },
-    delay: 1.5,
+    angle: 216, // Bottom left
+    delay: 0.9,
+  },
+  {
+    id: 5,
+    name: "Analytics",
+    icon: Zap,
+    description: "Performance monitoring",
+    angle: 288, // Top left
+    delay: 1.2,
   },
 ];
 
+const RADIUS = 250; // Distance from center
+
 export const FloatingAgents = () => {
   const [hoveredAgent, setHoveredAgent] = useState<number | null>(null);
+  const [hasSpread, setHasSpread] = useState(false);
+
+  useEffect(() => {
+    // Trigger the spread animation after component mounts
+    const timer = setTimeout(() => {
+      setHasSpread(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="relative w-full max-w-4xl">
+    <div className="relative w-full h-full">
       {agents.map((agent) => {
         const Icon = agent.icon;
+        const angleRad = (agent.angle * Math.PI) / 180;
+        const x = Math.cos(angleRad) * RADIUS;
+        const y = Math.sin(angleRad) * RADIUS;
+        
         return (
           <div
             key={agent.id}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2"
+            className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ease-out ${
+              hasSpread ? '' : 'translate-x-0 translate-y-0'
+            }`}
             style={{
-              left: `calc(50% + ${agent.position.x}px)`,
-              top: `calc(50% + ${agent.position.y}px)`,
-              animation: `float 4s ease-in-out infinite ${agent.delay}s`,
+              left: hasSpread ? `calc(50% + ${x}px)` : '50%',
+              top: hasSpread ? `calc(50% + ${y}px)` : '50%',
+              transitionDelay: `${agent.delay}s`,
             }}
             onMouseEnter={() => setHoveredAgent(agent.id)}
             onMouseLeave={() => setHoveredAgent(null)}
           >
-            {/* Connection line to center */}
-            <div
-              className="absolute w-0.5 bg-gradient-to-r from-cyan-400/20 to-transparent origin-bottom"
-              style={{
-                height: Math.sqrt(agent.position.x ** 2 + agent.position.y ** 2),
-                transform: `rotate(${Math.atan2(-agent.position.y, -agent.position.x) * 180 / Math.PI + 90}deg)`,
-                left: '50%',
-                top: '50%',
-                transformOrigin: 'top center',
-              }}
-            />
+            {/* Connection line to center - only visible after spread */}
+            {hasSpread && (
+              <div
+                className="absolute w-0.5 bg-gradient-to-r from-cyan-400/20 to-transparent origin-bottom opacity-0 animate-fade-in"
+                style={{
+                  height: RADIUS,
+                  transform: `rotate(${agent.angle + 180}deg)`,
+                  left: '50%',
+                  top: '50%',
+                  transformOrigin: 'top center',
+                  animationDelay: `${agent.delay + 0.5}s`,
+                  animationFillMode: 'forwards',
+                }}
+              />
+            )}
             
             {/* Agent card */}
             <div className="relative group cursor-pointer">
@@ -77,6 +106,9 @@ export const FloatingAgents = () => {
                     ? 'border-cyan-400/60 scale-105 shadow-lg shadow-cyan-400/20' 
                     : 'border-cyan-400/20'
                 }`}
+                style={{
+                  animation: hasSpread ? `float 4s ease-in-out infinite ${agent.delay}s` : 'none',
+                }}
               >
                 <div className="flex flex-col items-center space-y-3">
                   <div className="relative">
@@ -103,13 +135,6 @@ export const FloatingAgents = () => {
           </div>
         );
       })}
-      
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-          50% { transform: translate(-50%, -50%) translateY(-10px); }
-        }
-      `}</style>
     </div>
   );
 };
