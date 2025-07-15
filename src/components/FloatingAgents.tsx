@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Search, Cog, FileText, Share2, Zap } from "lucide-react";
+import { Search, Cog, FileText, Share2 } from "lucide-react";
 
 const agents = [
   {
@@ -8,7 +8,7 @@ const agents = [
     name: "Web Search",
     icon: Search,
     description: "Intelligent web crawler",
-    angle: 0, // Top
+    angle: 45, // Top right
     delay: 0,
   },
   {
@@ -16,7 +16,7 @@ const agents = [
     name: "Agent Logic",
     icon: Cog,
     description: "Decision processing core",
-    angle: 72, // Top right
+    angle: 135, // Top left
     delay: 0.3,
   },
   {
@@ -24,7 +24,7 @@ const agents = [
     name: "Content Creator",
     icon: FileText,
     description: "Autonomous content generation",
-    angle: 144, // Bottom right
+    angle: 225, // Bottom left
     delay: 0.6,
   },
   {
@@ -32,20 +32,12 @@ const agents = [
     name: "Social Media",
     icon: Share2,
     description: "Multi-platform distribution",
-    angle: 216, // Bottom left
+    angle: 315, // Bottom right
     delay: 0.9,
-  },
-  {
-    id: 5,
-    name: "Analytics",
-    icon: Zap,
-    description: "Performance monitoring",
-    angle: 288, // Top left
-    delay: 1.2,
   },
 ];
 
-const RADIUS = 250; // Distance from center
+const RADIUS = 280; // Distance from center
 
 export const FloatingAgents = () => {
   const [hoveredAgent, setHoveredAgent] = useState<number | null>(null);

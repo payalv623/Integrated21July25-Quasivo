@@ -4,6 +4,11 @@ import { AgentOrchestrator } from "@/components/AgentOrchestrator";
 import { FloatingAgents } from "@/components/FloatingAgents";
 
 const Index = () => {
+  const RADIUS = 280; // Same radius as in FloatingAgents
+  const orchestratorAngle = 0; // Top position
+  const orchestratorX = Math.cos((orchestratorAngle * Math.PI) / 180) * RADIUS;
+  const orchestratorY = Math.sin((orchestratorAngle * Math.PI) / 180) * RADIUS;
+
   return (
     <div className="min-h-screen bg-black overflow-hidden relative">
       {/* Background video placeholder */}
@@ -46,13 +51,24 @@ const Index = () => {
         
         {/* Container for orchestrator and agents */}
         <div className="relative w-full max-w-6xl h-96">
-          {/* Central Agent Orchestrator */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+          {/* Central Orchestrator positioned at top */}
+          <div 
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 z-20"
+            style={{
+              left: `calc(50% + ${orchestratorX}px)`,
+              top: `calc(50% + ${orchestratorY}px)`,
+            }}
+          >
             <AgentOrchestrator />
           </div>
           
           {/* Floating Agents spreading out from center */}
           <FloatingAgents />
+          
+          {/* Center space reserved for video */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-2 border-dashed border-cyan-400/20 rounded-lg flex items-center justify-center">
+            <span className="text-xs text-cyan-400/40">Video Space</span>
+          </div>
         </div>
       </div>
       
