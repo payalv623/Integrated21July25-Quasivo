@@ -3,6 +3,9 @@ import { gsap } from 'gsap';
 import NeuralNetworkCore from './NeuralNetworkCore';
 import ResumeScanner from './ResumeScanner';
 import ScorecardsOutput from './ScorecardsOutput';
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/LOGO.png";
+
 
 interface InteractiveNeuralNetworkProps {
   className?: string;
@@ -96,7 +99,20 @@ const InteractiveNeuralNetwork: React.FC<InteractiveNeuralNetworkProps> = ({ cla
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
-      
+      <Link to="/">
+      <img
+        src={logo}
+        alt="Quasivo"
+        className="
+          w-auto 
+          mt-1 sm:mt-5 md:mt-6 lg:mt-8 xl:mt-4 xl:ml-1
+          h-[3rem] sm:h-[4rem] md:h-[5rem] lg:h-[6rem] xl:h-[5rem] 
+          max-w-[12rem] opacity-90
+        "
+      />
+    </Link>
+
+
       {/* Section Title */}
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20">
         <h1 className="text-5xl font-bold text-white mb-2">

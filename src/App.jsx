@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/routes/HomePage";
 import AboutPage from "./components/routes/AboutPage";
-// import InteractiveNeuralNetwork from "./components/routes/InteractiveNeuralNetwork";
 import NeuralTile from "./components/routes/NeuralTile";
 
 export default function App() {
