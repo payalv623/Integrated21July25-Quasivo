@@ -1,0 +1,212 @@
+.funny-bot {
+  position: relative;
+  z-index: 15;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(255, 107, 107, 0.6),
+    0 0 60px rgba(255, 107, 107, 0.3);
+  animation: float 3s ease-in-out infinite, wobble 2s ease-in-out infinite;
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid #fff;
+}
+
+.funny-bot:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(255, 107, 107, 0.8),
+    0 0 80px rgba(255, 107, 107, 0.4);
+}
+
+.funny-bot::before {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border: 2px solid rgba(255, 107, 107, 0.3);
+  border-radius: 25px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.bot-face {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.bot-antenna {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 15px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.bot-antenna::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ffff00;
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+
+.bot-eyes {
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  margin: 0 auto 15px;
+  padding-top: 10px;
+}
+
+.bot-eye {
+  width: 20px;
+  height: 20px;
+  background: #000;
+  border-radius: 50%;
+  position: relative;
+  animation: eyeMove 3s infinite;
+}
+
+.bot-eye::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.bot-mouth {
+  width: 40px;
+  height: 20px;
+  border: 3px solid #000;
+  border-radius: 0 0 90px 90px;
+  border-top: none;
+  margin: 0 auto;
+  animation: smile 2s infinite;
+}
+
+.bot-arms {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 20px;
+}
+
+.bot-arm {
+  position: absolute;
+  width: 30px;
+  height: 8px;
+  background: #ff8e8e;
+  border-radius: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: wave 2s infinite;
+}
+
+.bot-arm.left {
+  left: -25px;
+  transform-origin: right center;
+}
+
+.bot-arm.right {
+  right: -25px;
+  transform-origin: left center;
+  animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes blink {
+  2%,
+  90%,
+  100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes eyeMove {
+  0%,
+  50%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes smile {
+  0%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(1.2);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(20deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
