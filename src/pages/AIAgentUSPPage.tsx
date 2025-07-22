@@ -2,10 +2,12 @@ import { AIAgentUSPHigherDimensionalBeing } from '../components/agentic-ai/AIAge
 import { AIAgentUSPAgentOrchestrator } from '../components/agentic-ai/AgentOrchestrator';
 import { AIAgentUSPFloatingAgents } from '../components/agentic-ai/AIAgentUSPFloatingAgents';
 import { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CyberpunkTile } from '../components/agentic-ai/ui/CyberpunkTile';
 import { UserCog, Zap } from 'lucide-react';
 
 const AIAgentUSPPage = () => {
+  const navigate = useNavigate();
   const RADIUS = 280; // Same radius as in FloatingAgents
   const orchestratorAngle = 0; // Top position
   const orchestratorX = Math.cos((orchestratorAngle * Math.PI) / 180) * RADIUS;
@@ -44,6 +46,13 @@ const AIAgentUSPPage = () => {
 
   return (
     <div className="min-h-screen bg-black overflow-hidden relative">
+      {/* Back to Home Button */}
+      <button
+        onClick={() => navigate('/')}
+        className="fixed top-6 left-6 z-30 bg-black/40 text-cyan-200 px-5 py-2 rounded-full border border-cyan-400/40 hover:bg-cyan-900/60 hover:text-white transition-all shadow-lg backdrop-blur-md"
+      >
+        ← Back to Home
+      </button>
       {/* Background video placeholder */}
       {/* <div className="absolute inset-0 z-0">
         <div className="w-full h-full bg-gradient-to-br from-blue-900/10 via-black to-purple-900/10 flex items-center justify-center">

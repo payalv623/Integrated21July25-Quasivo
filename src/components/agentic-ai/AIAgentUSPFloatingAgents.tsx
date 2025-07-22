@@ -1,50 +1,51 @@
 import { useState, useEffect } from 'react';
-import { Search, Cog, FileText, Share2 } from 'lucide-react';
+import { Globe, LineChart, Hashtag, FileText, PenLine, MonitorSmartphone } from 'lucide-react';
 
 const agents = [
   {
     id: 1,
-    name: 'Agent orchestrator',
-    icon: Search,
-    description: 'Intelligent web crawler',
+    name: 'Web Search',
+    icon: Globe,
+    description: 'Real-time discovery',
     angle: 90, // Top right
     delay: 0.2,
   },
   {
     id: 2,
-    name: 'Agent Logic',
-    icon: Cog,
-    description: 'Decision processing core',
+    name: 'Trend Analysis',
+    icon: LineChart,
+    description: 'Pattern + topic ID',
     angle: 18, // Top left
     delay: 0.5,
   },
   {
     id: 3,
-    name: 'Content Creator',
+    name: 'Summarization',
     icon: FileText,
-    description: 'Autonomous content generation',
+    description: 'Insight distillation',
     angle: 162, // Bottom left
     delay: 0.7,
   },
   {
     id: 4,
-    name: 'Social Media',
-    icon: Share2,
-    description: 'Multi-platform distribution',
+    name: 'Post Generation',
+    icon: PenLine,
+    description: 'Generates unique posts',
     angle: 234, // Bottom right
     delay: 0.11,
   },
   {
     id: 5,
-    name: 'Web search',
-    icon: Share2,
-    description: 'Multi-platform distribution',
+    name: 'Publishing',
+    icon: MonitorSmartphone,
+    description: 'Multi-platform output',
     angle: 306, // Bottom right
     delay: 0.13,
   },
 ];
 
 const RADIUS = 350; // Distance from center
+const TILE_SCALE = 1.25; // 25% larger
 
 export const AIAgentUSPFloatingAgents = () => {
   const [hoveredAgent, setHoveredAgent] = useState<number | null>(null);
@@ -60,12 +61,42 @@ export const AIAgentUSPFloatingAgents = () => {
 
   return (
     <div className="relative w-full h-full">
+      {/* Render lines from center to each tile, behind video and tiles */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {hasSpread && agents.map((agent) => {
+          const angleRad = (agent.angle * Math.PI) / 180;
+          const x = Math.cos(angleRad) * RADIUS;
+          const y = Math.sin(angleRad) * RADIUS;
+          return (
+            <div
+              key={agent.id + '-line'}
+              className="pointer-events-none absolute left-1/2 top-1/2"
+              style={{ width: 0, height: 0 }}
+            >
+              <div
+                className={`absolute w-1 bg-gradient-to-r from-cyan-400/40 to-transparent origin-top transition-opacity duration-700 ${hasSpread ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                  height: Math.sqrt(x * x + y * y),
+                  transform: `rotate(${agent.angle}deg)`,
+                  left: 0,
+                  top: 0,
+                  transformOrigin: 'top center',
+                  animationDelay: `${agent.delay + 0.5}s`,
+                  animationFillMode: 'forwards',
+                  zIndex: 0,
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Render agent tiles above the lines */}
       {agents.map((agent) => {
         const Icon = agent.icon;
         const angleRad = (agent.angle * Math.PI) / 180;
         const x = Math.cos(angleRad) * RADIUS;
         const y = Math.sin(angleRad) * RADIUS;
-
         return (
           <div
             key={agent.id}
@@ -78,28 +109,12 @@ export const AIAgentUSPFloatingAgents = () => {
             onMouseEnter={() => setHoveredAgent(agent.id)}
             onMouseLeave={() => setHoveredAgent(null)}
           >
-            {/* Connection line to center - only visible after spread */}
-            {hasSpread && (
-              <div
-                className="absolute w-0.5 bg-gradient-to-r from-cyan-400/20 to-transparent origin-bottom opacity-0 animate-fade-in"
-                style={{
-                  height: RADIUS,
-                  transform: `rotate(${agent.angle + 180}deg)`,
-                  left: '50%',
-                  top: '50%',
-                  transformOrigin: 'top center',
-                  animationDelay: `${agent.delay + 0.5}s`,
-                  animationFillMode: 'forwards',
-                }}
-              />
-            )}
-
-            {/* Agent card */}
             <div
               className="relative group cursor-pointer transition-opacity duration-1000 ease-out"
               style={{
                 opacity: hasSpread ? 1 : 0.1,
                 transitionDelay: `${agent.delay}s`,
+                transform: `scale(${TILE_SCALE})`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl blur-lg transform group-hover:scale-110 transition-transform duration-300" />
@@ -117,22 +132,22 @@ export const AIAgentUSPFloatingAgents = () => {
               >
                 <div className="flex flex-col items-center space-y-3">
                   <div className="relative">
-                    <Icon className="w-8 h-8 text-cyan-400" />
+                    <Icon className="w-10 h-10 text-cyan-400" />
                     <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-md animate-pulse" />
                   </div>
                   <div className="text-center">
-                    <h4 className="text-sm font-semibold text-cyan-300 mb-1">
+                    <h4 className="text-base font-semibold text-cyan-300 mb-1">
                       {agent.name}
                     </h4>
-                    <p className="text-xs text-cyan-300/60">
+                    <p className="text-sm text-cyan-300/60">
                       {agent.description}
                     </p>
                   </div>
 
                   {/* Status indicator */}
                   <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-xs text-green-400">Active</span>
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <span className="text-sm text-green-400">Active</span>
                   </div>
                 </div>
               </div>
