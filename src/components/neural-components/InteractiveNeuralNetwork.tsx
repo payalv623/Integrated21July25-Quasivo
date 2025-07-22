@@ -100,16 +100,17 @@ const InteractiveNeuralNetwork: React.FC<InteractiveNeuralNetworkProps> = ({ cla
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
       <Link to="/">
-      <img
-        src={logo}
-        alt="Quasivo"
-        className="
-          w-auto 
-          mt-1 sm:mt-5 md:mt-6 lg:mt-8 xl:mt-4 xl:ml-1
-          h-[3rem] sm:h-[4rem] md:h-[5rem] lg:h-[6rem] xl:h-[5rem] 
-          max-w-[12rem] opacity-90
-        "
-      />
+     <button
+  className="fixed top-6 left-6 z-30 
+    bg-purple-800/10 text-purple-200 
+    px-5 py-2 rounded-full 
+    border border-purple-400/30 
+    hover:bg-purple-600/40 hover:text-white 
+    transition-all shadow-lg backdrop-blur-md"
+>
+  ← Back to Home
+</button>
+
     </Link>
 
 

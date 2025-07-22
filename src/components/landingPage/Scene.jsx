@@ -91,11 +91,11 @@ export default function Scene() {
           // 📱 Tablet adjusted layout
           <>
             <Tile3D
-              position={[-3.8, 1.5, -1]}
+              position={[-2.7, 1.5, -1]}
               frontImage={aimlFront}
               backImage={aimlBack}
               backImagePosition={-2.2}
-  redirectTo="/NeuralNetwork" 
+              redirectTo="/NeuralNetwork" 
 
 />
             <Tile3D
@@ -126,7 +126,7 @@ export default function Scene() {
               frontImage={aimlFront}
               backImage={aimlBack}
               backImagePosition={0.5}
-  redirectTo="/NeuralNetwork" 
+              redirectTo="/NeuralNetwork" 
 
             />
             <Tile3D

@@ -1,11 +1,11 @@
 // import logo from "../../assets/images/QuasivoLOGO.jpg";
-import logo from "../../assets/images/LOGO.png";
+import logo from "../../assets/images/Justlogo.png";
 
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="absolute w-full flex justify-between items-center pt-2 lg:h-[12vh]  pb-4 px-4 sm:pt-4 sm:pb-6 sm:px-6 ">
+    <header className="absolute w-full flex justify-between items-center pt-2 h-19 md:h-[12vh] lg:h-[12vh]  pb-4 px-4 sm:pt-4 sm:pb-6 sm:px-6 ">
       <img
         src={logo}
         alt="Quasivo"
@@ -15,13 +15,16 @@ export default function Header() {
     sm:mt-5 
     md:mt-6 
     lg:mt-8 
-    xl:mt-10 
-    h-[3rem] 
-    sm:h-[4rem] 
-    md:h-[5rem] 
-    lg:h-[6rem] 
-    xl:h-[7rem] 
-    max-w-[12rem] opacity-90
+    xl:mt-8
+    h-[5rem] 
+    ml-[-1.3rem]
+    sm:h-[9rem] 
+    md:h-[9rem] 
+    lg:h-[8rem] 
+    xl:h-[10rem] 
+    max-w-[12rem] opacity-100
+    xl:ml-[-2rem] 
+
   "
       />
 

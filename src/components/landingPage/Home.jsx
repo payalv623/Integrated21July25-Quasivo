@@ -38,7 +38,7 @@ export default function Home() {
       <div
         className="
     absolute z-20
-    top-[64%] sm:top-[50%] md:top-[70%] lg:top-[42%] xl:top-[80%] 
+    top-[66%] sm:top-[60%] md:top-[76%] lg:top-[42%] xl:top-[80%] 
     left-1/2 transform -translate-x-1/2
     text-center pointer-events-none px-4 w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%]
   "
@@ -57,7 +57,7 @@ export default function Home() {
       font-light text-slate-200 mt-2
       leading-snug"
         >
-          meets action, and innovation leads the way. Let your vision align with
+          Let's meet action, and innovation leads the way. Let your vision align with
           tomorrow’s intelligence
         </h3>
       </div>
